@@ -53,12 +53,32 @@ document.addEventListener("DOMContentLoaded", function() {
         foodData.forEach(item => addFoodToUI(item.name, item.calories));
     }
 
-    function addFoodToUI(name, calories) {
+    function addFoodToUI(name, calories, index) {
         const list = document.getElementById('foodList');
         const entry = document.createElement('li');
-        entry.textContent = `${name}: ${calories} calories`;
+        entry.className = 'food-item';
+        entry.innerHTML = `${name}: ${calories} calories
+            <button onclick="deleteFoodItem(${index})" class="delete-btn">Delete</button>`;
         list.appendChild(entry);
     }
+    
+    function loadFoodDataFromLocalStorage() {
+        const foodData = JSON.parse(localStorage.getItem('foodData')) || [];
+        foodData.forEach((item, index) => addFoodToUI(item.name, item.calories, index));
+    }
+    
+    window.deleteFoodItem = function(index) {
+        let foodData = JSON.parse(localStorage.getItem('foodData')) || [];
+        foodData.splice(index, 1); // Remove the item at the specified index
+        localStorage.setItem('foodData', JSON.stringify(foodData)); // Update local storage
+        updateFoodListUI(); // Refresh the food list UI
+    };
+    
+    function updateFoodListUI() {
+        document.getElementById('foodList').innerHTML = ''; // Clear the list
+        loadFoodDataFromLocalStorage(); // Reload and repopulate the list
+    }
+    
 
     function autocompleteFoodInput() {
         const inputField = document.getElementById('foodName');

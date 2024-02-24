@@ -106,3 +106,19 @@ button:hover {
 #autocompleteList div:hover {
     background-color: #f0f0f0;
 }
+
+.delete-btn {
+    margin-left: 10px;
+    background-color: #ff4d4d;
+    color: white;
+}
+
+.delete-btn:hover {
+    background-color: #ff0000;
+}
+
+.food-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
