@@ -7,22 +7,32 @@ body {
 
 h1 {
     color: #333;
+    text-align: center;
 }
 
-div, p {
+div {
     margin-bottom: 15px;
 }
 
-input[type="number"], input[type="text"], select {
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="number"], input[type="text"], select, button {
     padding: 10px;
-    margin-right: 10px;
+    margin-bottom: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    width: calc(100% - 22px); /* Adjust width as necessary */
+    font-size: 16px;
 }
 
 input[type="text"] {
-    width: calc(50% - 22px); /* Adjust for autocomplete input */
+    width: 100%; /* Full width for text input */
+}
+
+input[type="number"] {
+    width: calc(50% - 22px); /* Adjust width for number inputs */
 }
 
 button {
@@ -32,19 +42,59 @@ button {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    font-size: 16px;
 }
 
 button:hover {
     background-color: #0056b3;
 }
 
-#autocompleteList {
+#foodList {
+    list-style-type: none;
+    padding: 0;
+}
+
+#foodList li {
+    background-color: #fff;
+    padding: 10px;
     border: 1px solid #ddd;
-    border-top: none; /* Remove top border to blend with input */
+    margin-top: 5px;
+}
+
+/* Layout specific styles */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.flex-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Adjust the width of the inputs and buttons for better alignment */
+.input-group {
+    margin-bottom: 10px;
+}
+
+.input-group input, 
+.input-group button {
+    width: 100%;
+}
+
+/* Style for autocomplete suggestions */
+#autocompleteList {
     position: absolute;
-    width: calc(50% - 22px); /* Match the input field width */
+    width: 100%;
+    border: 1px solid #ddd;
+    border-top: none;
     background-color: white;
-    z-index: 1000; /* Ensure it sits above other content */
+    z-index: 1000;
 }
 
 #autocompleteList div {
@@ -55,16 +105,4 @@ button:hover {
 
 #autocompleteList div:hover {
     background-color: #f0f0f0;
-}
-
-ul#foodList {
-    list-style-type: none;
-    padding: 0;
-}
-
-ul#foodList li {
-    background-color: #fff;
-    padding: 10px;
-    border: 1px solid #ddd;
-    margin-top: 5px;
 }
