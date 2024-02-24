@@ -2,84 +2,66 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nutrition Tracker</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>My Nutrition Tracker</h1>
-
+    <h1>Nutrition Tracker</h1>
+    
+    <!-- Unit System Selection -->
     <div>
         <label for="unitSystem">Unit System:</label>
-        <select id="unitSystem" onchange="updateUnitSystem()">
+        <select id="unitSystem">
             <option value="metric">Metric (kg, cm)</option>
             <option value="imperial">Imperial (lbs, ft/in)</option>
         </select>
     </div>
-    
-    <div>
-        <label for="age">Age:</label>
-        <input type="number" id="age" name="age">
+
+    <!-- Metric Inputs -->
+    <div id="metricSystem">
+        <input type="number" id="weightMetric" placeholder="Weight in kg">
+        <input type="number" id="heightMetric" placeholder="Height in cm">
     </div>
-    
-    <div id="metricSystem" class="unit-system">
+
+    <!-- Imperial Inputs -->
+    <div id="imperialSystem" style="display:none;">
+        <input type="number" id="weightImperial" placeholder="Weight in lbs">
         <div>
-            <label for="weightMetric">Weight (kg):</label>
-            <input type="number" id="weightMetric" name="weightMetric">
-        </div>
-        <div>
-            <label for="heightMetric">Height (cm):</label>
-            <input type="number" id="heightMetric" name="heightMetric">
+            <input type="number" id="heightFeet" placeholder="Height (ft)">
+            <input type="number" id="heightInches" placeholder="Height (in)">
         </div>
     </div>
 
-    <div id="imperialSystem" class="unit-system" style="display:none;">
-        <div>
-            <label for="weightImperial">Weight (lbs):</label>
-            <input type="number" id="weightImperial" name="weightImperial">
-        </div>
-        <div>
-            <label>Height:</label>
-            <input type="number" id="heightFeet" placeholder="ft" style="width:70px;">
-            <input type="number" id="heightInches" placeholder="in" style="width:70px;">
-        </div>
-    </div>
-    
+    <!-- User Details and Goals -->
     <div>
-        <label for="gender">Gender:</label>
+        <input type="number" id="age" placeholder="Age">
         <select id="gender">
             <option value="male">Male</option>
             <option value="female">Female</option>
         </select>
-    </div>
-    
-    <div>
-        <label for="goal">Goal:</label>
         <select id="goal">
             <option value="lose">Lose Weight</option>
             <option value="maintain">Maintain Weight</option>
             <option value="gain">Gain Weight</option>
         </select>
-    </div>
-    <button onclick="calculateCalories()">Calculate Recommended Calories</button>
-    <p id="recommendedCalories">Recommended Daily Calories: 0</p>
-    
-    <div class="autocomplete">
-        <label for="food">Food Item:</label>
-        <input type="text" id="food" name="food">
-        <div id="autocomplete-list" class="autocomplete-items"></div>
+        <button id="calculateCaloriesBtn">Calculate Calories</button>
     </div>
     
+    <p id="recommendedCalories">Recommended Daily Calories: </p>
+    
+    <!-- Food Diary -->
     <div>
-        <label for="calories">Calories:</label>
-        <input type="number" id="calories" name="calories">
+        <input type="text" id="foodName" placeholder="Food Name">
+        <input type="number" id="calories" placeholder="Calories">
+        <button id="addFoodBtn">Add Food</button>
     </div>
     
-    <button onclick="addFood()">Add Food</button>
+    <!-- Autocomplete List -->
+    <div id="autocompleteList"></div>
     
-    <h2>My Food Diary</h2>
+    <!-- Food List Display -->
     <ul id="foodList"></ul>
-
+    
     <script src="script.js"></script>
 </body>
 </html>
