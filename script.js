@@ -49,6 +49,38 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById('recommendedCalories').textContent = 'Recommended Daily Calories: ' + Math.round(tdee);
     };
 
+    // Load food data from local storage and display it
+    loadFoodDataFromLocalStorage();
+
+    // Add event listener for adding food data
+    document.getElementById('addFoodButton').addEventListener('click', function() {
+        const foodName = document.getElementById('foodNameInput').value;
+        const calories = document.getElementById('caloriesInput').value;
+        if (foodName && calories) {
+            addFoodToLocalStorage(foodName, calories);
+            addFoodToUI(foodName, calories);
+        }
+    });
+
     // Initial call to set the default unit system
     updateUnitSystem();
 });
+
+function addFoodToLocalStorage(foodName, calories) {
+    let foodData = JSON.parse(localStorage.getItem('foodData')) || [];
+    foodData.push({ name: foodName, calories: calories });
+    localStorage.setItem('foodData', JSON.stringify(foodData));
+}
+
+function loadFoodDataFromLocalStorage() {
+    const foodData = JSON.parse(localStorage.getItem('foodData')) || [];
+    foodData.forEach(foodItem => {
+        addFoodToUI(foodItem.name, foodItem.calories);
+    });
+}
+
+function addFoodToUI(foodName, calories) {
+    const listElement = document.createElement('li');
+    listElement.textContent = `${foodName}: ${calories} calories`;
+    document.getElementById('foodList').appendChild(listElement);
+}
