@@ -1,54 +1,44 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // Function to update the visibility of metric and imperial input fields
-    window.updateUnitSystem = function() {
-        const unitSystem = document.getElementById('unitSystem').value;
-        document.getElementById('metricSystem').style.display = unitSystem === 'metric' ? 'block' : 'none';
-        document.getElementById('imperialSystem').style.display = unitSystem === 'imperial' ? 'block' : 'none';
-    };
+    // Load existing food data from Local Storage when the page loads
+    loadFoodDataFromLocalStorage();
 
-    // Function to calculate the recommended daily calories
-    window.calculateCalories = function() {
-        const unitSystem = document.getElementById('unitSystem').value;
-        const age = parseInt(document.getElementById('age').value);
-        const gender = document.getElementById('gender').value;
-        const goal = document.getElementById('goal').value;
-        let weight;
-        let height;
+    // Event listener for the "Add Food" button
+    document.getElementById('addFoodButton').addEventListener('click', function() {
+        const foodName = document.getElementById('foodNameInput').value;
+        const calories = document.getElementById('caloriesInput').value;
 
-        // Get the weight and height based on the unit system
-        if (unitSystem === 'metric') {
-            weight = parseFloat(document.getElementById('weightMetric').value);
-            height = parseFloat(document.getElementById('heightMetric').value);
+        // Add the food item to the UI and local storage
+        if (foodName && calories) {
+            addFoodToUI(foodName, calories);
+            addFoodToLocalStorage(foodName, calories);
         } else {
-            // Convert feet and inches to centimeters
-            const feet = parseFloat(document.getElementById('heightFeet').value);
-            const inches = parseFloat(document.getElementById('heightInches').value);
-            height = feet * 30.48 + inches * 2.54;
-            // Convert pounds to kilograms
-            weight = parseFloat(document.getElementById('weightImperial').value) * 0.453592;
+            alert('Please fill in both food name and calories.');
         }
-
-        // Calculate BMR based on gender
-        let bmr;
-        if (gender === 'male') {
-            bmr = 10 * weight + 6.25 * height - 5 * age + 5;
-        } else {
-            bmr = 10 * weight + 6.25 * height - 5 * age - 161;
-        }
-
-        // Assuming moderate activity level with a multiplier of 1.55
-        let tdee = bmr * 1.55;
-
-        // Adjust TDEE based on the user's goal
-        if (goal === 'lose') {
-            tdee -= 500; // Subtract 500 calories for weight loss
-        } else if (goal === 'gain') {
-            tdee += 500; // Add 500 calories for weight gain
-        }
-
-        document.getElementById('recommendedCalories').textContent = 'Recommended Daily Calories: ' + Math.round(tdee);
-    };
-
-    // Initial call to set the default unit system
-    updateUnitSystem();
+    });
 });
+
+// Add a food item to Local Storage
+function addFoodToLocalStorage(foodName, calories) {
+    let foodData = JSON.parse(localStorage.getItem('foodData')) || [];
+    foodData.push({ name: foodName, calories: calories });
+    localStorage.setItem('foodData', JSON.stringify(foodData));
+}
+
+// Load food data from Local Storage and display it in the UI
+function loadFoodDataFromLocalStorage() {
+    const foodData = JSON.parse(localStorage.getItem('foodData')) || [];
+    foodData.forEach(foodItem => {
+        addFoodToUI(foodItem.name, foodItem.calories);
+    });
+}
+
+// Function to add a food item to the UI
+function addFoodToUI(foodName, calories) {
+    const listElement = document.createElement('li');
+    listElement.textContent = `${foodName}: ${calories} calories`;
+    document.getElementById('foodList').appendChild(listElement);
+
+    // Clear input fields after adding
+    document.getElementById('foodNameInput').value = '';
+    document.getElementById('caloriesInput').value = '';
+}
