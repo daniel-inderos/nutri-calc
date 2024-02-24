@@ -1,64 +1,70 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    background-color: #f8f8f8;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
 }
 
-h1, h2 {
+h1 {
     color: #333;
 }
 
-div {
-    margin-bottom: 20px;
+div, p {
+    margin-bottom: 15px;
 }
 
-label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-input[type="text"], input[type="number"], select {
-    width: calc(100% - 22px);
+input[type="number"], input[type="text"], select {
     padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
+    margin-right: 10px;
+    border: 1px solid #ddd;
     border-radius: 4px;
+    width: calc(100% - 22px); /* Adjust width as necessary */
+}
+
+input[type="text"] {
+    width: calc(50% - 22px); /* Adjust for autocomplete input */
 }
 
 button {
-    background-color: #4CAF50; /* Green */
-    color: white;
     padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #0056b3;
 }
 
-.unit-system {
-    margin-bottom: 20px;
+#autocompleteList {
+    border: 1px solid #ddd;
+    border-top: none; /* Remove top border to blend with input */
+    position: absolute;
+    width: calc(50% - 22px); /* Match the input field width */
+    background-color: white;
+    z-index: 1000; /* Ensure it sits above other content */
 }
 
-.unit-system div {
-    display: inline-block;
-    margin-right: 10px;
+#autocompleteList div {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #ddd;
 }
 
-#heightFeet, #heightInches {
-    width: 70px;
+#autocompleteList div:hover {
+    background-color: #f0f0f0;
 }
 
-ul {
+ul#foodList {
     list-style-type: none;
     padding: 0;
 }
 
-li {
-    padding: 8px;
-    margin-bottom: 6px;
-    background-color: #f0f0f0;
+ul#foodList li {
+    background-color: #fff;
+    padding: 10px;
     border: 1px solid #ddd;
+    margin-top: 5px;
 }
