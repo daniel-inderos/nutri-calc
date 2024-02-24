@@ -11,9 +11,9 @@
 
     <div>
         <label for="unitSystem">Unit System:</label>
-        <select id="unitSystem" onchange="updateUnitLabels()">
+        <select id="unitSystem" onchange="updateUnitSystem()">
             <option value="metric">Metric (kg, cm)</option>
-            <option value="imperial">Imperial (lbs, inches)</option>
+            <option value="imperial">Imperial (lbs, ft/in)</option>
         </select>
     </div>
     
@@ -22,14 +22,27 @@
         <input type="number" id="age" name="age">
     </div>
     
-    <div>
-        <label for="weight">Weight:</label>
-        <input type="number" id="weight" name="weight"><span id="weightUnit">kg</span>
+    <div id="metricSystem" class="unit-system">
+        <div>
+            <label for="weightMetric">Weight (kg):</label>
+            <input type="number" id="weightMetric" name="weightMetric">
+        </div>
+        <div>
+            <label for="heightMetric">Height (cm):</label>
+            <input type="number" id="heightMetric" name="heightMetric">
+        </div>
     </div>
-    
-    <div>
-        <label for="height">Height:</label>
-        <input type="number" id="height" name="height"><span id="heightUnit">cm</span>
+
+    <div id="imperialSystem" class="unit-system" style="display:none;">
+        <div>
+            <label for="weightImperial">Weight (lbs):</label>
+            <input type="number" id="weightImperial" name="weightImperial">
+        </div>
+        <div>
+            <label>Height:</label>
+            <input type="number" id="heightFeet" placeholder="ft" style="width:70px;">
+            <input type="number" id="heightInches" placeholder="in" style="width:70px;">
+        </div>
     </div>
     
     <div>
@@ -48,7 +61,6 @@
             <option value="gain">Gain Weight</option>
         </select>
     </div>
-    
     <button onclick="calculateCalories()">Calculate Recommended Calories</button>
     <p id="recommendedCalories">Recommended Daily Calories: 0</p>
     
